@@ -23,6 +23,11 @@
 #define KEY_RUS_A 148
 #define KEY_RUS_D 130
 
+#define KEY_p 112
+#define KEY_P 80
+#define KEY_RUS_p 167
+#define KEY_RUS_P 135
+
 #define COMMON_FKEY 0
 #define KEY_F10 68
 
@@ -34,11 +39,12 @@ control_buttons button_controls[SIZE_BUF_KEY] =
         {KEY_RUS_s, KEY_RUS_w, KEY_RUS_a, KEY_RUS_d},
         {KEY_RUS_S, KEY_RUS_W, KEY_RUS_A, KEY_RUS_D}};
 
-_Bool snakeControlHandler(snake_t *snake)
+int snakeControlHandler(snake_t *snake)
 {
     if (kbhit())
     {
         int key = getch();
+        // printf("%d \n", key);
         switch (key)
         {
         case COMMON_ARR:
@@ -58,7 +64,7 @@ _Bool snakeControlHandler(snake_t *snake)
 
             if (key == KEY_F10)
             {
-                return 1;
+                return STOP_KEY_VAL;
             }
             break;
         default:
@@ -72,6 +78,11 @@ _Bool snakeControlHandler(snake_t *snake)
                     setDirLeft(snake);
                 else if (key == snake->butCtrl[i].right)
                     setDirRight(snake);
+            }
+
+            if (key == KEY_p || key == KEY_P || key == KEY_RUS_p || key == KEY_RUS_P)
+            {
+                return PAUSE_KEY_VAL;
             }
 
             break;

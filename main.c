@@ -11,6 +11,7 @@ void printDebugSnake(snake_t *snake)
 	}
 }
 
+int pauseFlag = 0;
 int main()
 {
 	char matrix[MAX_X][MAX_Y];
@@ -19,11 +20,26 @@ int main()
 
 	while (1)
 	{
-		if (snakeControlHandler(&snake) == 1)
+		int buttonGameControl = snakeControlHandler(&snake);
+		switch (buttonGameControl)
 		{
+		case STOP_KEY_VAL:
 			system("cls");
 			printf("Exit game");
 			return 0;
+			break;
+		case PAUSE_KEY_VAL:
+			pauseFlag = !pauseFlag;
+			break;
+		}
+
+		// printf("%d\n", pauseFlag);
+
+		if (pauseFlag == 1)
+		{
+			system("cls");
+			printf("Game paused");
+			continue;
 		}
 
 		moveSnake(&snake);
