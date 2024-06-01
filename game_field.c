@@ -7,7 +7,10 @@ void clearGameField(char matrix[][MAX_Y])
     {
         for (int j = 0; j < MAX_Y; ++j)
         {
-            matrix[i][j] = ' ';
+            if (matrix[i][j] != ' ')
+            {
+                matrix[i][j] = ' ';
+            }
         }
     }
 }

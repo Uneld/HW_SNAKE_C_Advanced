@@ -10,29 +10,10 @@
 #include "apple.h"
 
 snake_t initSnake(int x, int y, size_t tsize, control_buttons *butCtrl);
-
-// @**
-void printSnake(snake_t *snake, char matrix[][MAX_Y]);
-
-// void update_tail(snake_t *snake);
-
-// void moveLeft(snake_t *snake);
-
-// void moveRight(snake_t *snake);
-// void moveDown(snake_t *snake);
-
-// void moveUp(snake_t *snake);
-
 void moveSnake(snake_t *snake);
-
-void setDirDown(snake_t *snake);
-
-void setDirUp(snake_t *snake);
-
-void setDirLeft(snake_t *snake);
-
-void setDirRight(snake_t *snake);
-
-void eatHandler(snake_t *snake, apple_t *apple);
+void printSnake(snake_t *snake, char matrix[][MAX_Y]);
+void setDir(snake_t *snake, enum Direction dir);
+int eatHandler(snake_t *snake, apple_t *apple);
+int snakeCollision(snake_t *snake);
 
 #endif /* __SNAKE_H__ */

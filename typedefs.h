@@ -13,10 +13,10 @@ typedef struct
 
 enum Direction
 {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
+    UP = 0,
+    RIGHT = 1,
+    LEFT = 2,
+    DOWN = 3
 };
 
 typedef struct

@@ -34,53 +34,31 @@ void printSnake(snake_t *snake, char matrix[][MAX_Y])
 
 void update_tail(snake_t *snake)
 {
-    for (int i = snake->tsize - 1; i > 0; i--)
-    {
-        snake->tail[i] = snake->tail[i - 1];
-    }
+    memmove(&snake->tail[1], &snake->tail[0], (snake->tsize - 1) * sizeof(tail_t));
     snake->tail[0].x = snake->x;
     snake->tail[0].y = snake->y;
 }
 
-void moveLeft(snake_t *snake)
+void moveSnakeHandler(snake_t *snake, int dx, int dy)
 {
     update_tail(snake);
 
-    snake->x = snake->x - 1;
-    if (snake->x < 0)
-    {
-        snake->x = MAX_X - 1;
-    }
-}
-
-void moveRight(snake_t *snake)
-{
-    update_tail(snake);
-
-    snake->x = snake->x + 1;
+    snake->x += dx;
     if (snake->x >= MAX_X)
     {
         snake->x = 0;
     }
-}
+    else if (snake->x < 0)
+    {
+        snake->x = MAX_X - 1;
+    }
 
-void moveDown(snake_t *snake)
-{
-    update_tail(snake);
-
-    snake->y = snake->y + 1;
+    snake->y += dy;
     if (snake->y >= MAX_Y)
     {
         snake->y = 0;
     }
-}
-
-void moveUp(snake_t *snake)
-{
-    update_tail(snake);
-
-    snake->y = snake->y - 1;
-    if (snake->y < 0)
+    else if (snake->y < 0)
     {
         snake->y = MAX_Y - 1;
     }
@@ -91,53 +69,29 @@ void moveSnake(snake_t *snake)
     switch (snake->dir)
     {
     case LEFT:
-        moveLeft(snake);
+        moveSnakeHandler(snake, -1, 0);
         break;
     case RIGHT:
-        moveRight(snake);
+        moveSnakeHandler(snake, 1, 0);
         break;
     case UP:
-        moveUp(snake);
+        moveSnakeHandler(snake, 0, -1);
         break;
     case DOWN:
-        moveDown(snake);
+        moveSnakeHandler(snake, 0, 1);
         break;
     }
 }
 
-void setDirDown(snake_t *snake)
+void setDir(snake_t *snake, enum Direction dir)
 {
-    if (snake->dir != UP)
+    if ((snake->dir + dir) % 3)
     {
-        snake->dir = DOWN;
+        snake->dir = dir;
     }
 }
 
-void setDirUp(snake_t *snake)
-{
-    if (snake->dir != DOWN)
-    {
-        snake->dir = UP;
-    }
-}
-
-void setDirLeft(snake_t *snake)
-{
-    if (snake->dir != RIGHT)
-    {
-        snake->dir = LEFT;
-    }
-}
-
-void setDirRight(snake_t *snake)
-{
-    if (snake->dir != LEFT)
-    {
-        snake->dir = RIGHT;
-    }
-}
-
-void eatHandler(snake_t *snake, apple_t *apple)
+int eatHandler(snake_t *snake, apple_t *apple)
 {
     if (snake->x == apple->x && snake->y == apple->y)
     {
@@ -146,15 +100,31 @@ void eatHandler(snake_t *snake, apple_t *apple)
 
         int deltaX = snake->tail[posSecLastTail].x - snake->tail[posLastTail].x;
         int deltaY = snake->tail[posSecLastTail].y - snake->tail[posLastTail].y;
+        int weigt = apple->weigt;
 
-        snake->tsize = snake->tsize + apple->weigt;
+        snake->tsize = snake->tsize + weigt;
 
-        for (int i = posLastTail; i < snake->tsize; i++)
+        for (int i = posLastTail + 1; i < snake->tsize; i++)
         {
-            snake->tail[i].x = snake->tail[i - 1].x + deltaX;
-            snake->tail[i].y = snake->tail[i - 1].y + deltaY;
+            snake->tail[i].x = snake->tail[i - 1].x - deltaX;
+            snake->tail[i].y = snake->tail[i - 1].y - deltaY;
         }
 
         generateNewApple(snake, apple);
+
+        return weigt;
     }
+    return 0;
+}
+
+int snakeCollision(snake_t *snake)
+{
+    for (int i = 0; i < snake->tsize; i++)
+    {
+        if (snake->x == snake->tail[i].x && snake->y == snake->tail[i].y)
+        {
+            return 1;
+        }
+    }
+    return 0;
 }
