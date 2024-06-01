@@ -50,13 +50,13 @@ int snakeControlHandler(snake_t *snake)
         case COMMON_ARR:
             key = getch();
             if (key == snake->butCtrl[BUF_ARR_KEY].down)
-                setDirDown(snake);
+                setDir(snake, DOWN);
             else if (key == snake->butCtrl[BUF_ARR_KEY].up)
-                setDirUp(snake);
+                setDir(snake, UP);
             else if (key == snake->butCtrl[BUF_ARR_KEY].left)
-                setDirLeft(snake);
+                setDir(snake, LEFT);
             else if (key == snake->butCtrl[BUF_ARR_KEY].right)
-                setDirRight(snake);
+                setDir(snake, RIGHT);
 
             break;
         case COMMON_FKEY:
@@ -71,13 +71,13 @@ int snakeControlHandler(snake_t *snake)
             for (size_t i = BUF_ARR_KEY + 1; i < SIZE_BUF_KEY; i++)
             {
                 if (key == snake->butCtrl[i].down)
-                    setDirDown(snake);
+                    setDir(snake, DOWN);
                 else if (key == snake->butCtrl[i].up)
-                    setDirUp(snake);
+                    setDir(snake, UP);
                 else if (key == snake->butCtrl[i].left)
-                    setDirLeft(snake);
+                    setDir(snake, LEFT);
                 else if (key == snake->butCtrl[i].right)
-                    setDirRight(snake);
+                    setDir(snake, RIGHT);
             }
 
             if (key == KEY_p || key == KEY_P || key == KEY_RUS_p || key == KEY_RUS_P)

@@ -1,4 +1,5 @@
 #include "apple.h"
+#include "time.h"
 
 apple_t initApple(int x, int y, int weigt)
 {
@@ -37,6 +38,7 @@ void generateNewApple(snake_t *snake, apple_t *apple)
     int new_y;
     int deltaX;
     int deltaY;
+    srand(time(NULL));
 
     do
     {
