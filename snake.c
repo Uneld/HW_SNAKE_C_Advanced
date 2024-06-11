@@ -1,7 +1,8 @@
 #include "snake.h"
 #include "settings.h"
+#include "console_colors.h"
 
-snake_t initSnake(int x, int y, size_t tsize, control_buttons *butCtrl)
+snake_t initSnake(int x, int y, size_t tsize, control_buttons *butCtrl, const char *headChar, const char *tailChar, int lockControl)
 {
     snake_t snake;
 
@@ -11,6 +12,9 @@ snake_t initSnake(int x, int y, size_t tsize, control_buttons *butCtrl)
     snake.tail = (tail_t *)malloc(sizeof(tail_t) * 100);
     snake.dir = LEFT;
     snake.butCtrl = butCtrl;
+    snake.headChar = headChar;
+    snake.tailChar = tailChar;
+    snake.lockControl = lockControl;
 
     for (int i = 0; i < tsize; ++i)
     {
@@ -25,10 +29,10 @@ snake_t initSnake(int x, int y, size_t tsize, control_buttons *butCtrl)
 void printSnake(snake_t *snake, char matrix[][MAX_Y])
 {
     // заполняем змейку
-    matrix[snake->x][snake->y] = '@';
+    matrix[snake->x][snake->y] = *snake->headChar;
     for (int i = 0; i < snake->tsize; ++i)
     {
-        matrix[snake->tail[i].x][snake->tail[i].y] = '*';
+        matrix[snake->tail[i].x][snake->tail[i].y] = *snake->tailChar;
     }
 }
 

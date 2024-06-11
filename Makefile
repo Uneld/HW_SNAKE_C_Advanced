@@ -5,8 +5,8 @@ CFLAGS=-c -Wall -std=c99
 
 all: snake
 
-snake: main.o snake.o controls.o game_field.o apple.o
-	$(CC) main.o snake.o controls.o game_field.o apple.o -o snake
+snake: main.o snake.o controls.o game_field.o apple.o console_colors.o snake_bot.o
+	$(CC) main.o snake.o controls.o game_field.o apple.o console_colors.o snake_bot.o -o snake
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c
@@ -22,6 +22,12 @@ game_field: game_field.c
 	
 apple: apple.c
 	$(CC) $(CFLAGS) apple.c
+	
+console_colors: console_colors.c
+	$(CC) $(CFLAGS) console_colors.c
+	
+snake_bot: snake_bot.c
+	$(CC) $(CFLAGS) snake_bot.c
 
 clean:
 	del *.o *.exe

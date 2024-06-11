@@ -5,5 +5,5 @@
 
 void clearGameField(char matrix[][MAX_Y]);
 void printGameField(char matrix[][MAX_Y]);
-
+void printMenu();
 #endif /* __GAME_FIELD_H__ */
