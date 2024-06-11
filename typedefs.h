@@ -33,6 +33,9 @@ typedef struct
     tail_t *tail;
     size_t tsize;
     control_buttons *butCtrl;
+    const char *headChar;
+    const char *tailChar;
+    int lockControl;
 } snake_t;
 
 typedef struct
