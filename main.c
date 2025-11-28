@@ -211,10 +211,10 @@ int main()
 
 				setConsoleColor(CC_BLUE_LIGHT, CC_BLACK);
 				setConsoleColor(CC_BLUE_LIGHT, CC_BLACK);
-				printf("Player 1 snake length is %lld\n", snake.tsize);
+				printf("Player 1 snake length is %d\n", snake.tsize);
 				if (gameMode == 2)
 				{
-					printf("Player 2 snake length is %lld\n", snake2.tsize);
+					printf("Player 2 snake length is %d\n", snake2.tsize);
 				}
 				setConsoleColor(CC_GREEN, CC_BLACK);
 				printf("Current level: %d. Required size to win %d\n", currentLevel, WON_SIZE);
